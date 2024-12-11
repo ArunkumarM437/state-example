@@ -1,4 +1,4 @@
-# state-example
+# state-Management
 
 ## Project setup
 ```
