@@ -12,6 +12,8 @@ export default {
     HelloWorld
   }
 }
+// TO-DO
+// Study about how the data is handled in the VUE JS
 </script>
 
 <style>
