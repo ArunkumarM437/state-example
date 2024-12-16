@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Hello All Welcome Again</h3>
+    <h3>Hello All Welcome 😊</h3>
     <div class="users">
       <div v-for="user in allUsers" :key="user.id" class="eachuser">{{ user.name }}</div>
     </div>
@@ -13,7 +13,8 @@ import { mapGetters } from 'vuex';
 
 export default {
   name:"usersData",
-  computed : mapGetters(...['allUsers '])
+  computed : mapGetters(...['allUsers']),
+  
 }
 </script>
  
