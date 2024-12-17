@@ -1,17 +1,18 @@
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <img alt="Vue logo" src="./assets/Daco_4176864.png">
+
   <usersData/>
   <div class="wrapper">
     <div v-for="cat in cats" :key="cat.name">
-      <catCard :cat="cats" />
+      <catCard :cats="cat" />
     </div>
   </div>
 </template>
-
+  
 <script>
 import { ref } from 'vue'
-import allCats from '@/data/cats.js'
+import allCats from '@/data/cats'
 import usersData from './components/usersData.vue'
 import catCard from './components/catCard.vue';
 
@@ -50,5 +51,9 @@ export default {
 p,
 h3 {
   grid-column: span 3;
+}
+img{
+  height: 25%;
+  width: 15%;
 }
 </style>
