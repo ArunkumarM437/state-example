@@ -2,15 +2,14 @@
   <div>
     <h3>Hello All Welcome 😊 </h3>
     <div class="users">
-      <div v-for="user in allUsers" :key="user.id" class="eachuser"> Coolie ID :{{ user.id }}
+      <div v-for="user in paginatedItems" :key="user.id" class="eachuser"> Coolie ID :{{ user.id }}
         <strong>Name : {{ user.name }}</strong>
       </div>
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        first-number
-      ></b-pagination>
+      <div class="overflow-auto">
+        <b-pagination v-model="currentPage" pills :total-rows="rows" align="center"></b-pagination> 
+        <p class="mt-3">Current Page: {{ currentPage }}</p>
+      </div>
+      <!-- <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" first-number ></b-pagination> -->
     </div>
   </div>
 </template>
@@ -22,13 +21,16 @@ export default {
   name: "usersData",
   data(){
     return {
-      rows: 100,
-        perPage: 1,
-        currentPage: 5
+      rows: 2,
+      perPage: 2,
+      currentPage: 1
     }
   },
   computed: {
-    ...mapGetters(['allUsers']),
+    ...mapGetters(['allUsers'],['owner']),
+    paginatedItems(){
+      return this.allUsers;
+    }
   },
 };
 </script>
