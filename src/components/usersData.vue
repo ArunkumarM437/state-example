@@ -2,7 +2,7 @@
   <div>
     <h3>Hello All Welcome 😊 </h3>
     <div class="users">
-      <div v-for="user in allUsers" :key="user.id" class="eachuser"> Coolie ID :{{ user.id }}
+      <div v-for="user in paginatedItems" :key="user.id" class="eachuser"> Coolie ID :{{ user.id }}
         <strong>Name : {{ user.name }}</strong>
       </div>
       <div class="overflow-auto">
@@ -28,6 +28,9 @@ export default {
   },
   computed: {
     ...mapGetters(['allUsers'],['owner']),
+    paginatedItems(){
+      return this.allUsers;
+    }
   },
 };
 </script>
