@@ -6,10 +6,9 @@
         <strong>Name : {{ user.name }}</strong>
       </div>
       <div class="overflow-auto">
-        <b-pagination v-model="currentPage" pills :total-rows="rows" align="center"></b-pagination> 
-        <p class="mt-3">Current Page: {{ currentPage }}</p>
+        <h6 class="mt-3" >Page No</h6>
+        <b-pagination v-model="currentPage" pills :total-rows="totalItems" :per-page="perPage" align="center"></b-pagination> 
       </div>
-      <!-- <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" first-number ></b-pagination> -->
     </div>
   </div>
 </template>
@@ -21,15 +20,20 @@ export default {
   name: "usersData",
   data(){
     return {
-      rows: 2,
+      rows: 10,
       perPage: 2,
       currentPage: 1
     }
   },
   computed: {
     ...mapGetters(['allUsers'],['owner']),
+    totalItems(){
+      return this.allUsers.length
+    },
     paginatedItems(){
-      return this.allUsers;
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.allUsers.slice(start,end);
     }
   },
 };
