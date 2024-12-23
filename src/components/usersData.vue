@@ -1,6 +1,14 @@
 <template>
   <div>
     <h3>Hello All Welcome 😊 </h3>
+    <div v-if="projectLoad" class="text-center">
+      <b-button variant="primary" disabled>
+      <b-spinner small type="grow"></b-spinner>
+      Loading...
+    </b-button>
+        <!-- <button type="button" class="btn btn-light">Light</button> -->
+        <button type="button" class="btn btn-light" v-if="projectLoad" @click="this.projectLoad=false">Stop</button>
+    </div>
     <div class="users">
       <div v-for="user in paginatedItems" :key="user.id" class="eachuser"> Coolie ID :{{ user.id }}
         <strong>Name : {{ user.name }}</strong>
@@ -20,10 +28,13 @@ export default {
   name: "usersData",
   data(){
     return {
-      rows: 10,
       perPage: 2,
-      currentPage: 1
+      currentPage: 1,
+      projectLoad:false
     }
+  },
+  created(){
+    this.projectLoad = true
   },
   computed: {
     ...mapGetters(['allUsers'],['owner']),
@@ -33,6 +44,9 @@ export default {
     paginatedItems(){
       const start = (this.currentPage - 1) * this.perPage;
       const end = start + this.perPage;
+      // if(this.allUsers.length>0){
+      //   this.projectLoad = false;
+      // }
       return this.allUsers.slice(start,end);
     }
   },
