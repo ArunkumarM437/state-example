@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Hello All Welcome 😊 </h3>
+    <h3>Hello {{ ownerDetail.name }} Welcome 😊 </h3>
     <div v-if="projectLoad" class="text-center">
       <b-button variant="primary" disabled>
       <b-spinner small type="grow"></b-spinner>
@@ -30,14 +30,20 @@ export default {
     return {
       perPage: 2,
       currentPage: 1,
-      projectLoad:false
+      projectLoad:false,
+      ownerDetail : [],
     }
   },
   created(){
     this.projectLoad = true
+    this.ownerDetail = this.ownerOfProj
+    console.log(this.ownerOfProj)
+    console.log("This Owner Is Who",this.owner)
+    console.log("All Users:",this.a)
   },
   computed: {
-    ...mapGetters(['allUsers'],['owner']),
+    ...mapGetters(['allUsers']),
+    ...mapGetters(['ownerOfProj']),
     totalItems(){
       return this.allUsers.length
     },

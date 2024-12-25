@@ -18,16 +18,20 @@ const state = {
             id:10104,
             name:"Arunkumar M"
         },
+        {
+            id:10105,
+            name:"Sheen X"
+        },
     ],
-    OwnerofThisProject:{
+    OwnerofThisProject:[{
         name:"ArunkumarM-437",
         role:"Cloud-Developer"
-    }
+    }]
 };
 
 const getters = {
     allUsers : (state)=>state.users,
-    owner : (state)=>state.OwnerofThisProject
+    ownerOfProj : (state)=>state.OwnerofThisProject
 };
 
 const actions = {};
