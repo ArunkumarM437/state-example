@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 v-for="owner in ownerDetail" :key="owner.id">Hello {{ owner.name }} Welcome 😊 </h3>
+    <h3 v-for="owner in ownerDetail" :key="owner.id">Hello {{ owner.name }} Welcome 😊 : {{ owner.role }}</h3>
     <div v-if="projectLoad" class="text-center">
       <b-button variant="primary" disabled>
       <b-spinner small type="grow"></b-spinner>
@@ -9,6 +9,17 @@
         <!-- <button type="button" class="btn btn-light">Light</button> -->
         <button type="button" class="btn btn-light" v-if="projectLoad" @click="this.projectLoad=false">Stop</button>
     </div>
+    <div class="col-sm-auto d-flex align-items-center">
+  <form @submit.prevent class="d-flex align-items-center">
+    <input 
+      id="" 
+      type="text" 
+      class="form-control bg-gray w-100 h-100" 
+      placeholder="Search Users" 
+      v-model="searchStr">
+  </form>
+</div>
+
     <div class="users">
       <div v-for="user in paginatedItems" :key="user.id" class="eachuser"> Coolie ID :{{ user.id }}
         <strong>Name : {{ user.name }}</strong>
@@ -32,6 +43,7 @@ export default {
       currentPage: 1,
       projectLoad:false,
       ownerDetail : [],
+      searchStr : '',
     }
   },
   beforeCreate(){
@@ -52,9 +64,14 @@ export default {
     
     totalItems() {
         // Compute total number of items
-        return this.allUsers.length;
+        return this.filteredHistory.length;
     },
-
+    filteredHistory(){
+      const finalFiltered = this.allUsers.filter(filtHist =>
+        filtHist.name.toLowerCase().includes(this.searchStr.toLowerCase()) 
+      );
+      return finalFiltered
+    },
     paginatedItems() {
         // Compute paginated items
         const start = (this.currentPage - 1) * this.perPage;
@@ -64,7 +81,7 @@ export default {
         if (this.allUsers && this.allUsers.length > 0) {
             // Uncomment and use projectLoad logic if needed
             // this.projectLoad = false;
-            return this.allUsers.slice(start, end);
+            return this.filteredHistory.slice(start, end);
         }
         return [];
     }
