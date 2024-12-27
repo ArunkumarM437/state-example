@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Hello {{ ownerDetail.name }} Welcome 😊 </h3>
+    <h3 v-for="owner in ownerDetail" :key="owner.id">Hello {{ owner.name }} Welcome 😊 </h3>
     <div v-if="projectLoad" class="text-center">
       <b-button variant="primary" disabled>
       <b-spinner small type="grow"></b-spinner>
@@ -23,7 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-
+import { toRaw } from 'vue';
 export default {
   name: "usersData",
   data(){
@@ -34,28 +34,47 @@ export default {
       ownerDetail : [],
     }
   },
-  created(){
-    this.projectLoad = true
-    this.ownerDetail = this.ownerOfProj
+  beforeCreate(){
     console.log(this.ownerOfProj)
     console.log("This Owner Is Who",this.owner)
-    console.log("All Users:",this.a)
+  },
+  created(){
+    this.projectLoad = true
+    this.ownerDetail = toRaw(this.ownerOfProj)
+    this.getOwner()
+    console.log("Owner Raw Data",this.ownerDetail)
+    console.log("This Owner Is Who",this.owner)
+    console.log("All Users:",this.allUsers)
   },
   computed: {
-    ...mapGetters(['allUsers']),
-    ...mapGetters(['ownerOfProj']),
-    totalItems(){
-      return this.allUsers.length
+    // Use mapGetters to map Vuex getters
+    ...mapGetters(['allUsers', 'ownerOfProj']),
+    
+    totalItems() {
+        // Compute total number of items
+        return this.allUsers.length;
     },
-    paginatedItems(){
-      const start = (this.currentPage - 1) * this.perPage;
-      const end = start + this.perPage;
-      // if(this.allUsers.length>0){
-      //   this.projectLoad = false;
-      // }
-      return this.allUsers.slice(start,end);
+
+    paginatedItems() {
+        // Compute paginated items
+        const start = (this.currentPage - 1) * this.perPage;
+        const end = start + this.perPage;
+
+        // Optional: Handle edge cases (e.g., empty array)
+        if (this.allUsers && this.allUsers.length > 0) {
+            // Uncomment and use projectLoad logic if needed
+            // this.projectLoad = false;
+            return this.allUsers.slice(start, end);
+        }
+        return [];
     }
+},
+methods:{
+  getOwner(){
+    console.log("This Owner From Methods:",this.ownerOfProj)
   },
+},
+
 };
 </script>
 
