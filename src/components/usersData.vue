@@ -2,10 +2,10 @@
   <div>
     <h3 v-for="owner in ownerDetail" :key="owner.id">Hello {{ owner.name }} Welcome 😊 : {{ owner.role }}</h3>
     <div v-if="projectLoad" class="text-center">
-      <b-button variant="primary" disabled>
-      <b-spinner small type="grow"></b-spinner>
-      Loading...
-    </b-button>
+      <button class="btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      </button>
         <!-- <button type="button" class="btn btn-light">Light</button> -->
         <button type="button" class="btn btn-light" v-if="projectLoad" @click="this.projectLoad=false">Stop</button>
     </div>
