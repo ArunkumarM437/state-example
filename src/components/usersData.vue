@@ -26,7 +26,7 @@
       </div>
       <div class="norecords" v-if="paginatedItems.length===0">
         <div>
-          <p>No Records Found.</p>
+          <p>No Coolies Found.</p>
         </div>
       </div>
       <div class="overflow-auto">
@@ -84,8 +84,6 @@ export default {
 
         // Optional: Handle edge cases (e.g., empty array)
         if (this.allUsers && this.allUsers.length > 0) {
-            // Uncomment and use projectLoad logic if needed
-            // this.projectLoad = false;
             return this.filteredHistory.slice(start, end);
         }
         return [];
